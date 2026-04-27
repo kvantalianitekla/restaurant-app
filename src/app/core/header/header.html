@@ -1,0 +1,16 @@
+<header>
+  <div class="logo">Tastify</div>
+
+  <nav [class.open]="menuOpen">
+    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
+    <a routerLink="/about" routerLinkActive="active">About</a>
+    <a routerLink="/contact" routerLinkActive="active">Contact</a>
+    <a routerLink="/menu" routerLinkActive="active">Menu</a>
+  </nav>
+
+  <button class="burger" (click)="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+</header>

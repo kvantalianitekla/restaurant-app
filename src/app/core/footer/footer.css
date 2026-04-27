@@ -1,0 +1,29 @@
+footer {
+  background-color: #1a1a1a;
+  color: #fff;
+  text-align: center;
+  padding: 2rem;
+  margin-top: auto;
+}
+
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.logo {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #f0a500;
+}
+
+.tagline {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.copy {
+  color: #666;
+  font-size: 0.8rem;
+}
