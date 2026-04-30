@@ -6,6 +6,12 @@
     <a routerLink="/about" routerLinkActive="active">About</a>
     <a routerLink="/contact" routerLinkActive="active">Contact</a>
     <a routerLink="/menu" routerLinkActive="active">Menu</a>
+    @if (auth.isLoggedIn()) {
+      <a (click)="auth.logout()" class="logout">Log out</a>
+    } @else {
+      <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
+      <a routerLink="/sign-up" routerLinkActive="active" class="signup-btn">Sign Up</a>
+    }
   </nav>
 
   <button class="burger" (click)="toggleMenu()">

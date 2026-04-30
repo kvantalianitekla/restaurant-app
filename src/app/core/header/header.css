@@ -76,3 +76,25 @@ nav a.active {
     display: flex;
   }
 }
+
+.signup-btn {
+  background-color: #f0a500;
+  color: #1a1a1a !important;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.signup-btn:hover {
+  background-color: #d4940a;
+}
+
+.logout {
+  cursor: pointer;
+  color: #ff4444 !important;
+}
+
+.logout:hover {
+  color: #cc0000 !important;
+}
