@@ -1,0 +1,17 @@
+<div class="menu-container">
+  <h1>Our Menu</h1>
+
+  @if (loading()) {
+    <div class="loading">Loading...</div>
+  }
+
+  @if (error()) {
+    <div class="error">{{ error() }}</div>
+  }
+
+  <div class="products-grid">
+    @for (product of products(); track product.id) {
+      <app-product-card [product]="product" />
+    }
+  </div>
+</div>
