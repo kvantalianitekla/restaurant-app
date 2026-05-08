@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
-import { Product } from '../../models/product.model';
+import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../services/product';
 import { ProductCard } from '../../shared/product-card/product-card';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-menu',
@@ -9,24 +10,17 @@ import { ProductCard } from '../../shared/product-card/product-card';
   templateUrl: './menu.html',
   styleUrl: './menu.css',
 })
-export class Menu implements OnInit {
-  products = signal<Product[]>([]);
-  loading = signal(true);
-  error = signal('');
+export class Menu {
+  private productService = inject(ProductService);
+  error = signal(false);
 
-  constructor(private productService: ProductService) {}
-
-  ngOnInit() {
-    this.productService.getProducts().subscribe({
-      next: (response) => {
-        console.log('products:', response);
-        this.products.set(response);
-        this.loading.set(false);
-      },
-      error: () => {
-        this.error.set('Failed to load products');
-        this.loading.set(false);
-      },
-    });
-  }
+  products = toSignal(
+    this.productService.getProducts().pipe(
+      catchError(() => {
+        this.error.set(true);
+        return of([]);
+      }),
+    ),
+    { initialValue: [] },
+  );
 }
