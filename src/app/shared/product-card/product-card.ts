@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CurrencyPipe, UpperCasePipe } from '@angular/common';
 import { Product } from '../../models/product.model';
 
@@ -10,4 +10,9 @@ import { Product } from '../../models/product.model';
 })
 export class ProductCard {
   @Input() product!: Product;
+  @Output() addToCart = new EventEmitter<{ id: number; price: number }>();
+
+  onAddToCart() {
+    this.addToCart.emit({ id: this.product.id, price: this.product.price });
+  }
 }

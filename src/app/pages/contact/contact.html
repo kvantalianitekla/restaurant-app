@@ -1,1 +1,51 @@
-<p>contact works!</p>
+<div class="contact-container">
+  <div class="contact-wrapper">
+    <h1>Contact Us</h1>
+    <p class="subtitle">Have a question? We'd love to hear from you!</p>
+
+    @if (successMessage()) {
+      <div class="success">{{ successMessage() }}</div>
+    }
+
+    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input id="name" type="text" formControlName="name" placeholder="Enter your name" />
+        @if (submitted() && contactForm.get('name')?.invalid) {
+          <span class="error">Name must be at least 2 characters</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
+        @if (submitted() && contactForm.get('email')?.invalid) {
+          <span class="error">Valid email is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Subject</label>
+        <input id="subject" type="text" formControlName="subject" placeholder="Enter subject" />
+        @if (submitted() && contactForm.get('subject')?.invalid) {
+          <span class="error">Subject is required</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea
+          id="message"
+          formControlName="message"
+          placeholder="Enter your message"
+          rows="5"
+        ></textarea>
+        @if (submitted() && contactForm.get('message')?.invalid) {
+          <span class="error">Message must be at least 10 characters</span>
+        }
+      </div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+</div>

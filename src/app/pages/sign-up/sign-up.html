@@ -3,6 +3,63 @@
     <h2>Create Account</h2>
 
     <div class="form-group">
+      <label for="firstName">First Name</label>
+      <input
+        id="firstName"
+        type="text"
+        name="firstName"
+        [(ngModel)]="formData.firstName"
+        required
+        #firstNameRef="ngModel"
+        placeholder="Enter your first name"
+      />
+      @if (firstNameRef.invalid && firstNameRef.touched) {
+        <span class="error">First name is required</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name</label>
+      <input
+        id="lastName"
+        type="text"
+        name="lastName"
+        [(ngModel)]="formData.lastName"
+        required
+        #lastNameRef="ngModel"
+        placeholder="Enter your last name"
+      />
+      @if (lastNameRef.invalid && lastNameRef.touched) {
+        <span class="error">Last name is required</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="age">Age</label>
+      <input
+        id="age"
+        type="number"
+        name="age"
+        [(ngModel)]="formData.age"
+        required
+        min="1"
+        #ageRef="ngModel"
+        placeholder="Enter your age"
+      />
+      @if (ageRef.invalid && ageRef.touched) {
+        <span class="error">Valid age is required</span>
+      }
+    </div>
+
+    <div class="form-group">
+      <label for="gender">Gender</label>
+      <select id="gender" name="gender" [(ngModel)]="formData.gender" required>
+        <option value="MALE">Male</option>
+        <option value="FEMALE">Female</option>
+      </select>
+    </div>
+
+    <div class="form-group">
       <label for="email">Email</label>
       <input
         id="email"

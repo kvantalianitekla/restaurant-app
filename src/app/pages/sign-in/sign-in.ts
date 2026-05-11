@@ -18,12 +18,14 @@ export class SignIn {
     private router: Router,
   ) {}
 
-  onSubmit(form: any) {
-    const success = this.auth.login(this.formData.email, this.formData.password);
-    if (success) {
-      this.router.navigate(['/']);
-    } else {
-      this.errorMessage = 'Invalid email or password';
-    }
+  onSubmit() {
+    this.auth.signIn(this.formData).subscribe({
+      next: () => {
+        this.router.navigate(['/']);
+      },
+      error: () => {
+        this.errorMessage = 'Invalid email or password';
+      },
+    });
   }
 }

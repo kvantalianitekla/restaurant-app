@@ -1,49 +1,48 @@
 import { Injectable, signal } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-
-export interface User {
-  email: string;
-  password: string;
-}
+import { SignUpDto, SignInDto, AuthResponse } from '../models/auth.model';
+import { Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class Auth {
-  private readonly USER_KEY = 'registered_user';
-  private readonly SESSION_KEY = 'logged_in_user';
+  private readonly BASE_URL = 'https://api.everrest.educata.dev';
+  private readonly TOKEN_KEY = 'access_token';
+
   isLoggedIn = signal(false);
 
-  constructor(private router: Router) {
-    const session = localStorage.getItem(this.SESSION_KEY);
-    if (session) {
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {
+    const token = localStorage.getItem(this.TOKEN_KEY);
+    if (token) {
       this.isLoggedIn.set(true);
     }
   }
 
-  register(email: string, password: string): boolean {
-    const user: User = { email, password };
-    localStorage.setItem(this.USER_KEY, JSON.stringify(user));
-    localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
-    this.isLoggedIn.set(true);
-    return true;
+  signUp(data: SignUpDto): Observable<any> {
+    return this.http.post(`${this.BASE_URL}/auth/sign_up`, data);
   }
 
-  login(email: string, password: string): boolean {
-    const stored = localStorage.getItem(this.USER_KEY);
-    if (!stored) return false;
-    const user: User = JSON.parse(stored);
-    if (user.email === email && user.password === password) {
-      localStorage.setItem(this.SESSION_KEY, JSON.stringify(user));
-      this.isLoggedIn.set(true);
-      return true;
-    }
-    return false;
+  signIn(data: SignInDto): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.BASE_URL}/auth/sign_in`, data).pipe(
+      tap((response) => {
+        localStorage.setItem(this.TOKEN_KEY, response.access_token);
+        this.isLoggedIn.set(true);
+      }),
+    );
   }
 
   logout(): void {
-    localStorage.removeItem(this.SESSION_KEY);
+    localStorage.removeItem(this.TOKEN_KEY);
     this.isLoggedIn.set(false);
-    this.router.navigate(['/']);
+    this.router.navigate(['/sign-in']);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 }

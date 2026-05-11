@@ -10,7 +10,15 @@ import { Auth } from '../../services/auth';
   styleUrl: './sign-up.css',
 })
 export class SignUp {
-  formData = { email: '', password: '', confirmPassword: '' };
+  formData = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    age: 0,
+    gender: 'MALE',
+  };
   errorMessage = '';
   passwordMismatch = false;
 
@@ -22,7 +30,28 @@ export class SignUp {
   onSubmit(form: any) {
     this.passwordMismatch = this.formData.password !== this.formData.confirmPassword;
     if (this.passwordMismatch) return;
-    this.auth.register(this.formData.email, this.formData.password);
-    this.router.navigate(['/']);
+
+    this.auth
+      .signUp({
+        firstName: this.formData.firstName,
+        lastName: this.formData.lastName,
+        email: this.formData.email,
+        password: this.formData.password,
+        age: this.formData.age,
+        gender: this.formData.gender as 'MALE' | 'FEMALE',
+        address: '',
+        phone: '+995599123456',
+        zipcode: '12345',
+        avatar: 'https://i.pravatar.cc/150',
+      })
+      .subscribe({
+        next: () => {
+          this.router.navigate(['/sign-in']);
+        },
+        error: (err) => {
+          console.log('error:', err.error);
+          this.errorMessage = 'Registration failed. Please try again.';
+        },
+      });
   }
 }

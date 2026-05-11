@@ -2,15 +2,24 @@
   <div class="logo">Tastify</div>
 
   <nav [class.open]="menuOpen">
-    <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Home</a>
-    <a routerLink="/about" routerLinkActive="active">About</a>
-    <a routerLink="/contact" routerLinkActive="active">Contact</a>
-    <a routerLink="/menu" routerLinkActive="active">Menu</a>
+    <a
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      (click)="closeMenu()"
+      >Home</a
+    >
+    <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
+    <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
+    <a routerLink="/menu" routerLinkActive="active" (click)="closeMenu()">Menu</a>
+    <a routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">Cart</a>
     @if (auth.isLoggedIn()) {
-      <a (click)="auth.logout()" class="logout">Log out</a>
+      <a (click)="auth.logout(); closeMenu()" class="logout">Log out</a>
     } @else {
-      <a routerLink="/sign-in" routerLinkActive="active">Sign In</a>
-      <a routerLink="/sign-up" routerLinkActive="active" class="signup-btn">Sign Up</a>
+      <a routerLink="/sign-in" routerLinkActive="active" (click)="closeMenu()">Sign In</a>
+      <a routerLink="/sign-up" routerLinkActive="active" class="signup-btn" (click)="closeMenu()"
+        >Sign Up</a
+      >
     }
   </nav>
 

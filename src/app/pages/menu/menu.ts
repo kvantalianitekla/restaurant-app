@@ -1,8 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ProductService } from '../../services/product';
+import { BasketService } from '../../services/basket';
 import { ProductCard } from '../../shared/product-card/product-card';
 import { catchError, of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -12,6 +14,8 @@ import { catchError, of } from 'rxjs';
 })
 export class Menu {
   private productService = inject(ProductService);
+  private basketService = inject(BasketService);
+  private router = inject(Router);
   error = signal(false);
 
   products = toSignal(
@@ -23,4 +27,15 @@ export class Menu {
     ),
     { initialValue: [] },
   );
+
+  addToCart(data: { id: number; price: number }) {
+    this.basketService.addToBasket(data.id, data.price).subscribe({
+      next: () => {
+        this.router.navigate(['/cart']);
+      },
+      error: () => {
+        alert('Failed to add to cart');
+      },
+    });
+  }
 }
