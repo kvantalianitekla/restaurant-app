@@ -1,0 +1,41 @@
+<div class="profile-container">
+  @if (error()) {
+    <p class="error">{{ error() }}</p>
+  }
+
+  @if (user()) {
+    <div class="profile-card">
+      <img [src]="user()!.avatar" [alt]="user()!.firstName" class="avatar" />
+      <div class="profile-info">
+        <h1>{{ user()!.firstName }} {{ user()!.lastName }}</h1>
+        <p class="role">{{ user()!.role }}</p>
+        <div class="details">
+          <div class="detail-item">
+            <span class="label">Email</span>
+            <span>{{ user()!.email }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Age</span>
+            <span>{{ user()!.age }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Gender</span>
+            <span>{{ user()!.gender }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Phone</span>
+            <span>{{ user()!.phone }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Address</span>
+            <span>{{ user()!.address }}</span>
+          </div>
+          <div class="detail-item">
+            <span class="label">Verified</span>
+            <span>{{ user()!.verified ? 'Yes' : 'No' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

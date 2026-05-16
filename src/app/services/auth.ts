@@ -1,7 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { SignUpDto, SignInDto, AuthResponse } from '../models/auth.model';
+import { SignUpDto, SignInDto, AuthResponse, UserProfile } from '../models/auth.model';
 import { Observable, tap } from 'rxjs';
 
 @Injectable({
@@ -44,5 +44,13 @@ export class Auth {
 
   getToken(): string | null {
     return localStorage.getItem(this.TOKEN_KEY);
+  }
+  getProfile(): Observable<UserProfile> {
+    const token = this.getToken();
+    return this.http.get<UserProfile>(`${this.BASE_URL}/auth`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   }
 }

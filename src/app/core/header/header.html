@@ -12,8 +12,9 @@
     <a routerLink="/about" routerLinkActive="active" (click)="closeMenu()">About</a>
     <a routerLink="/contact" routerLinkActive="active" (click)="closeMenu()">Contact</a>
     <a routerLink="/menu" routerLinkActive="active" (click)="closeMenu()">Menu</a>
-    <a routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">Cart</a>
     @if (auth.isLoggedIn()) {
+      <a routerLink="/cart" routerLinkActive="active" (click)="closeMenu()">Cart</a>
+      <a routerLink="/profile" routerLinkActive="active" (click)="closeMenu()">Profile</a>
       <a (click)="auth.logout(); closeMenu()" class="logout">Log out</a>
     } @else {
       <a routerLink="/sign-in" routerLinkActive="active" (click)="closeMenu()">Sign In</a>
