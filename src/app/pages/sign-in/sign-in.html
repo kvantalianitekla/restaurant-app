@@ -21,15 +21,20 @@
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        name="password"
-        [(ngModel)]="formData.password"
-        required
-        #passwordRef="ngModel"
-        placeholder="Enter your password"
-      />
+      <div class="input-wrapper">
+        <input
+          id="password"
+          [type]="showPassword() ? 'text' : 'password'"
+          name="password"
+          [(ngModel)]="formData.password"
+          required
+          #passwordRef="ngModel"
+          placeholder="Enter your password"
+        />
+        <button type="button" class="toggle-btn" (click)="showPassword.set(!showPassword())">
+          {{ showPassword() ? 'Hide' : 'Show' }}
+        </button>
+      </div>
       @if (passwordRef.invalid && passwordRef.touched) {
         <span class="error">Password is required</span>
       }

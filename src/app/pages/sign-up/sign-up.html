@@ -78,16 +78,21 @@
 
     <div class="form-group">
       <label for="password">Password</label>
-      <input
-        id="password"
-        type="password"
-        name="password"
-        [(ngModel)]="formData.password"
-        required
-        minlength="6"
-        #passwordRef="ngModel"
-        placeholder="Enter your password"
-      />
+      <div class="input-wrapper">
+        <input
+          id="password"
+          [type]="showPassword() ? 'text' : 'password'"
+          name="password"
+          [(ngModel)]="formData.password"
+          required
+          minlength="6"
+          #passwordRef="ngModel"
+          placeholder="Enter your password"
+        />
+        <button type="button" class="toggle-btn" (click)="showPassword.set(!showPassword())">
+          {{ showPassword() ? 'Hide' : 'Show' }}
+        </button>
+      </div>
       @if (passwordRef.invalid && passwordRef.touched) {
         <span class="error">Password must be at least 6 characters</span>
       }
@@ -95,14 +100,23 @@
 
     <div class="form-group">
       <label for="confirmPassword">Confirm Password</label>
-      <input
-        id="confirmPassword"
-        type="password"
-        name="confirmPassword"
-        [(ngModel)]="formData.confirmPassword"
-        required
-        placeholder="Confirm your password"
-      />
+      <div class="input-wrapper">
+        <input
+          id="confirmPassword"
+          [type]="showConfirmPassword() ? 'text' : 'password'"
+          name="confirmPassword"
+          [(ngModel)]="formData.confirmPassword"
+          required
+          placeholder="Confirm your password"
+        />
+        <button
+          type="button"
+          class="toggle-btn"
+          (click)="showConfirmPassword.set(!showConfirmPassword())"
+        >
+          {{ showConfirmPassword() ? 'Hide' : 'Show' }}
+        </button>
+      </div>
       @if (passwordMismatch) {
         <span class="error">Passwords do not match</span>
       }

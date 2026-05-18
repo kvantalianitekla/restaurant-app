@@ -1,0 +1,24 @@
+<div class="detail-container">
+  @if (product()) {
+    <div class="detail-card">
+      <img [src]="product()!.image" [alt]="product()!.name" />
+      <div class="detail-info">
+        <h1>{{ product()!.name }}</h1>
+        <div class="tags">
+          @if (product()!.vegeterian) {
+            <span class="tag green">Vegetarian</span>
+          }
+          @if (product()!.nuts) {
+            <span class="tag yellow">Contains Nuts</span>
+          }
+          <span class="tag red">Spiciness: {{ product()!.spiciness }}/5</span>
+        </div>
+        <p class="price">{{ product()!.price | currency }}</p>
+        <div class="actions">
+          <button class="add-btn" (click)="addToCart()">Add to Cart</button>
+          <button class="back-btn" routerLink="/menu">Back to Menu</button>
+        </div>
+      </div>
+    </div>
+  }
+</div>

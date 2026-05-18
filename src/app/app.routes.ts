@@ -10,6 +10,8 @@ import { Menu } from './pages/menu/menu';
 import { Profile } from './pages/profile/profile';
 import { authGuard } from './guards/auth-guard';
 import { guestGuard } from './guards/guest-guard';
+import { ProductDetail } from './pages/product-detail/product-detail';
+import { Checkout } from './pages/checkout/checkout';
 
 export const routes: Routes = [
   { path: '', component: Home },
@@ -20,5 +22,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUp, canActivate: [guestGuard] },
   { path: 'cart', component: Cart, canActivate: [authGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
+  { path: 'menu/:id', component: ProductDetail },
+  { path: 'checkout', component: Checkout, canActivate: [authGuard] },
   { path: '**', component: NotFound },
 ];

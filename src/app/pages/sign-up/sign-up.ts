@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, Router } from '@angular/router';
 import { Auth } from '../../services/auth';
@@ -21,6 +21,8 @@ export class SignUp {
   };
   errorMessage = '';
   passwordMismatch = false;
+  showPassword = signal(false);
+  showConfirmPassword = signal(false);
 
   constructor(
     private auth: Auth,

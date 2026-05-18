@@ -174,3 +174,20 @@ h1 {
     text-align: center;
   }
 }
+
+.checkout-btn {
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+  padding: 1rem;
+  background-color: #f0a500;
+  color: #fff;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.checkout-btn:hover {
+  background-color: #d4940a;
+}
