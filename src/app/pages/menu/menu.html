@@ -1,6 +1,34 @@
 <div class="menu-container">
   <h1>Our Menu</h1>
 
+  <div class="filters">
+    <label>
+      <input type="checkbox" [(ngModel)]="filters.vegeterian" />
+      Vegetarian
+    </label>
+    <label>
+      <input type="checkbox" [(ngModel)]="filters.nuts" />
+      Contains Nuts
+    </label>
+    <div class="spiciness-filter">
+      <label>Spiciness</label>
+      <select [(ngModel)]="filters.spiciness">
+        <option [ngValue]="undefined">All</option>
+        <option [ngValue]="0">0</option>
+        <option [ngValue]="1">1</option>
+        <option [ngValue]="2">2</option>
+        <option [ngValue]="3">3</option>
+        <option [ngValue]="4">4</option>
+      </select>
+    </div>
+    <button (click)="applyFilters()">Apply</button>
+    <button (click)="resetFilters()" class="reset-btn">Reset</button>
+  </div>
+
+  @if (loading()) {
+    <p class="loading">Products are loading...</p>
+  }
+
   @if (error()) {
     <p class="error">Products could not be loaded.</p>
   }
@@ -9,7 +37,9 @@
     @for (product of products(); track product.id) {
       <app-product-card [product]="product" (addToCart)="addToCart($event)" />
     } @empty {
-      <p class="loading">Products are loading...</p>
+      @if (!loading()) {
+        <p class="empty">No products found.</p>
+      }
     }
   </div>
 </div>
