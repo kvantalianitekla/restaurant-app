@@ -1,13 +1,16 @@
 import { TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClientTesting } from '@angular/common/http/testing';
+import { BasketService } from './basket';
 
-import { Basket } from './basket';
-
-describe('Basket', () => {
-  let service: Basket;
+describe('BasketService', () => {
+  let service: BasketService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(Basket);
+    TestBed.configureTestingModule({
+      providers: [provideHttpClient(), provideHttpClientTesting()],
+    });
+    service = TestBed.inject(BasketService);
   });
 
   it('should be created', () => {

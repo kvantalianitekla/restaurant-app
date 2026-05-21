@@ -29,3 +29,5 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.baseUrl}/Products/GetFiltered`, { params });
   }
 }
+
+export type { Product };
