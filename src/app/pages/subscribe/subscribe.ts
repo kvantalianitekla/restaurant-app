@@ -14,7 +14,7 @@ export class Subscribe {
 
   subscribeFunction() {
     this.http
-      .post('http://localhost:5678/webhook-test/subscribe', {
+      .post('https://teklakvantaliani.app.n8n.cloud/webhook/subscribe', {
         email: this.email,
       })
       .subscribe();
