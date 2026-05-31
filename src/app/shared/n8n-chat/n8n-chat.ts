@@ -12,7 +12,8 @@ export class N8nChat {
   constructor() {
     afterNextRender(() => {
       createChat({
-        webhookUrl: 'http://localhost:5678/webhook/7fca97dd-6ed3-4134-b41c-a6ea8baf3fe5/chat',
+        webhookUrl:
+          'https://teklakvantaliani.app.n8n.cloud/webhook/7fca97dd-6ed3-4134-b41c-a6ea8baf3fe5/chat',
         target: '#n8n-chat',
         mode: 'window',
         defaultLanguage: 'en',
