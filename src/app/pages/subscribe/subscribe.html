@@ -1,6 +1,24 @@
-<h2>Subscribe</h2>
+<!-- <h2>Subscribe</h2>
 
 <form (ngSubmit)="subscribeFunction()">
   <input type="email" name="email" [(ngModel)]="email" placeholder="Enter your email" />
   <button>Subscribe</button>
-</form>
+</form> -->
+
+<div class="subscribe-wrapper">
+  <h2 class="subscribe-heading">Subscribe</h2>
+  <p class="subscribe-subtext">Stay in the loop. No spam, ever.</p>
+
+  <form class="subscribe-form" (ngSubmit)="subscribeFunction()">
+    <div class="input-row">
+      <input
+        class="subscribe-input"
+        type="email"
+        name="email"
+        [(ngModel)]="email"
+        placeholder="your@email.com"
+      />
+      <button class="subscribe-btn" type="submit">Subscribe</button>
+    </div>
+  </form>
+</div>
