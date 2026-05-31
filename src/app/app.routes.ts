@@ -11,6 +11,7 @@ import { Profile } from './pages/profile/profile';
 import { authGuard } from './guards/auth-guard';
 import { guestGuard } from './guards/guest-guard';
 import { ProductDetail } from './pages/product-detail/product-detail';
+import { Subscribe } from './pages/subscribe/subscribe';
 import { Checkout } from './pages/checkout/checkout';
 
 export const routes: Routes = [
@@ -22,6 +23,7 @@ export const routes: Routes = [
   { path: 'sign-up', component: SignUp, canActivate: [guestGuard] },
   { path: 'cart', component: Cart, canActivate: [authGuard] },
   { path: 'profile', component: Profile, canActivate: [authGuard] },
+  { path: 'subscribe', component: Subscribe },
   { path: 'menu/:id', component: ProductDetail },
   { path: 'checkout', component: Checkout, canActivate: [authGuard] },
   { path: '**', component: NotFound },

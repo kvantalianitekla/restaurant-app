@@ -1,29 +1,46 @@
-import { Component, signal } from '@angular/core';
-import { ReactiveFormsModule, FormGroup, FormControl, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Component, inject, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { N8nChat } from '../../shared/n8n-chat/n8n-chat';
 
 @Component({
   selector: 'app-contact',
-  imports: [ReactiveFormsModule],
+  imports: [FormsModule, N8nChat],
   templateUrl: './contact.html',
   styleUrl: './contact.css',
 })
 export class Contact {
-  submitted = signal(false);
   successMessage = signal('');
+  errorMessage = signal('');
+  isLoading = signal(false);
 
-  contactForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(2)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    subject: new FormControl('', [Validators.required]),
-    message: new FormControl('', [Validators.required, Validators.minLength(10)]),
-  });
+  private http = inject(HttpClient);
+
+  contact = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    message: '',
+  };
 
   onSubmit() {
-    this.submitted.set(true);
-    if (this.contactForm.valid) {
-      this.successMessage.set('Your message has been sent successfully!');
-      this.contactForm.reset();
-      this.submitted.set(false);
-    }
+    this.isLoading.set(true);
+    this.errorMessage.set('');
+    this.successMessage.set('');
+
+    this.http
+      .post('https://teklakvantaliani.app.n8n.cloud/webhook/contact', this.contact)
+      .subscribe({
+        next: () => {
+          this.successMessage.set('Your message has been sent successfully!');
+          this.contact = { firstName: '', lastName: '', email: '', message: '' };
+          this.isLoading.set(false);
+        },
+        error: (err) => {
+          console.error(err);
+          this.errorMessage.set('Something went wrong. Please try again.');
+          this.isLoading.set(false);
+        },
+      });
   }
 }

@@ -7,28 +7,59 @@
       <div class="success">{{ successMessage() }}</div>
     }
 
-    <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+    @if (errorMessage()) {
+      <div class="error">{{ errorMessage() }}</div>
+    }
+
+    <form #contactForm="ngForm" (ngSubmit)="onSubmit()">
       <div class="form-group">
-        <label for="name">Name</label>
-        <input id="name" type="text" formControlName="name" placeholder="Enter your name" />
-        @if (submitted() && contactForm.get('name')?.invalid) {
-          <span class="error">Name must be at least 2 characters</span>
+        <label for="firstName">First Name</label>
+        <input
+          id="firstName"
+          type="text"
+          name="firstName"
+          [(ngModel)]="contact.firstName"
+          required
+          minlength="2"
+          #firstName="ngModel"
+          placeholder="Enter your first name"
+        />
+        @if (firstName.invalid && firstName.touched) {
+          <span class="error">First name must be at least 2 characters</span>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          id="lastName"
+          type="text"
+          name="lastName"
+          [(ngModel)]="contact.lastName"
+          required
+          minlength="2"
+          #lastName="ngModel"
+          placeholder="Enter your last name"
+        />
+        @if (lastName.invalid && lastName.touched) {
+          <span class="error">Last name must be at least 2 characters</span>
         }
       </div>
 
       <div class="form-group">
         <label for="email">Email</label>
-        <input id="email" type="email" formControlName="email" placeholder="Enter your email" />
-        @if (submitted() && contactForm.get('email')?.invalid) {
+        <input
+          id="email"
+          type="email"
+          name="email"
+          [(ngModel)]="contact.email"
+          required
+          email
+          #email="ngModel"
+          placeholder="Enter your email"
+        />
+        @if (email.invalid && email.touched) {
           <span class="error">Valid email is required</span>
-        }
-      </div>
-
-      <div class="form-group">
-        <label for="subject">Subject</label>
-        <input id="subject" type="text" formControlName="subject" placeholder="Enter subject" />
-        @if (submitted() && contactForm.get('subject')?.invalid) {
-          <span class="error">Subject is required</span>
         }
       </div>
 
@@ -36,16 +67,23 @@
         <label for="message">Message</label>
         <textarea
           id="message"
-          formControlName="message"
+          name="message"
+          [(ngModel)]="contact.message"
+          required
+          minlength="10"
+          #message="ngModel"
           placeholder="Enter your message"
           rows="5"
         ></textarea>
-        @if (submitted() && contactForm.get('message')?.invalid) {
+        @if (message.invalid && message.touched) {
           <span class="error">Message must be at least 10 characters</span>
         }
       </div>
 
-      <button type="submit">Send Message</button>
+      <button type="submit" [disabled]="contactForm.invalid || isLoading()">
+        {{ isLoading() ? 'Sending...' : 'Send Message' }}
+      </button>
     </form>
   </div>
 </div>
+<app-n8n-chat />
